@@ -6,7 +6,10 @@ const { StaticApp } = require('@keystone-alpha/app-static');
 
 const { KnexAdapter: Adapter } = require('@keystone-alpha/adapter-knex');
 
-const PROJECT_NAME = "ToDo";
+const TodosSchema = require('./lists/Todos.js');
+const UsersSchema = require('./lists/Users.js');
+
+const PROJECT_NAME = "ToDo Lists";
 
 
 const keystone = new Keystone({
@@ -19,12 +22,9 @@ const keystone = new Keystone({
 }),
 });
 
-keystone.createList('Todo', {
-  schemaDoc: 'A list of things which need to be done',
-  fields: {
-    name: { type: Text, schemaDoc: 'This is the thing you need to do' },
-  },
-});
+
+keystone.createList('Todo', TodosSchema);
+keystone.createList('User', UsersSchema);
 
 module.exports = {
   keystone,
